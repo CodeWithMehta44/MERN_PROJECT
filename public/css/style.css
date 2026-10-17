@@ -1,5 +1,12 @@
 body{
     background-color: burlywood;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.container{
+    flex: 1;
 }
 .navbar{
     height: 5rem;
@@ -42,8 +49,11 @@ body{
 
 /* Cards */
 .card{
+    width: 100%;
     border: none !important;
     margin-bottom: 2rem;
+    border-radius: 1rem;
+    overflow: hidden;
 }
 
 .card-img-top{
@@ -57,5 +67,35 @@ body{
 }
 
 .card-text p {
-    
+    font-weight: 400;
+}
+
+.listing-link{
+    text-decoration: none;
+    color: #222222;
+    display: block;
+}
+
+/* Card Effect*/
+.card-img-overlay {
+    opacity: 0;
+}
+
+.card-img-overlay:hover{
+    opacity: 0.2;
+    background-color: white;
+}
+
+.add-btn{
+    background-color: #e31523;
+}
+
+/* edit card */
+.edit-btn{
+    background-color: rgb(4, 73, 4);
+}
+
+/* Show page */
+.show-img{
+    height: 30vh;
 }
