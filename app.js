@@ -27,6 +27,14 @@ async function main(){
     await mongoose.connect("mongodb://127.0.0.1:27017/wanderlust")
 }
 
+const validateListing = (err,req,res) =>{
+    let {error} = listingSchema.validate(req.body);
+        if(error){
+            throw new expressError(400, error)
+        }else{
+            next();
+        }
+}
 
 //Index route..
 app.get("/listing",
@@ -50,14 +58,9 @@ app.get("/listing/:id",
 }))
 
 //Create Route..
-app.post("/listing", 
+app.post("/listing", validateListing,
     wrapAsync(async (req,res,next) => {
         // let {title, description, image, price, location, country} = req.body;
-        const result = listingSchema.validate(req.body);
-        console.log(result)
-        if(result.error){
-            throw new expressError(400,"Something Went Wrong!!")
-        }
         const newListing = new Listing(req.body.listing);
         await newListing.save()
         res.redirect("/listing");
@@ -72,7 +75,7 @@ app.get("/listing/:id/edit",
 }));
 
 //update Route..
-app.put("/listing/:id", 
+app.put("/listing/:id", validateListing,
     wrapAsync(async(req,res) => {
     let {id} = req.params;
     const listing = await Listing.findByIdAndUpdate(id,{...req.body.listing});
