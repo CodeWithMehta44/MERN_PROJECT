@@ -11,9 +11,19 @@
 
         <!-- Navigation Links -->
         <div class="navbar-nav flex-row">
-            <a class="nav-link px-3" href="/">Home</a>
+            <a class="nav-link px-3" href="/listing">Home</a>
             <a class="nav-link px-3" href="/listing">All Listings</a>
             <a class="nav-link px-3" href="/listing/new">Add New Listing</a>
+        </div>
+
+        <div class="navbar-nav flex-row">
+            <% if(!currUser) {%>
+            <a class="nav-link px-3" href="/signup">SignUp</a>
+            <a class="nav-link px-3" href="/login">Login</a>
+            <% } %>
+            <% if(currUser)  {%>
+            <a class="nav-link px-3" href="/logout">logout</a>
+            <% } %>
         </div>
 
     </div>

@@ -7,17 +7,28 @@
         <img src="<%= listing.image.url %>" class="card-img-top show-img" alt="listing_image">
         <div class="card-body">
             <p class="card-text" style="text-align: center;">
-               <%= listing.description %> <br>
-               <%= listing.location %> <br>
-               <%= listing.country %> <br>
-                &#8377; <%= listing.price.toLocaleString("en-IN") %>
+               <i> Owner: <%= listing.owner.username %></i>  <br>
+                Description: <%= listing.description %> <br>
+                Location: <%= listing.location %> <br>
+                Country:  <%= listing.country %> <br>
+                Prize: &#8377; <%= listing.price.toLocaleString("en-IN") %>
             </p>
         </div>
     </div>
-    <a href="/listing/<%= listing._id %>/edit" class="btn btn-dark">Edit</a>
-    <form method="post" action="/listing/<%= listing._id %>/?_method=DELETE ">
-        <button class="btn btn-dark mt-3 mb-3">Delete The Listing</button>
-    </form>
+    <% if(currUser && currUser._id.equals(listing.owner._id))  {%> 
+    <div class="btns"> 
+        <a href="/listing/<%= listing._id %>/edit" 
+            class="btn btn-dark">
+            Edit
+        </a>
+
+        <form method="post" action="/listing/<%= listing._id %>/?_method=DELETE ">
+            <button class="btn btn-dark mt-3 mb-3">Delete The Listing</button>
+        </form>
+    </div>
+    <% } %>
+   
+    <% if(currUser) {%>
     </div>
     <hr>
     <div class="col-8 offset-3">
@@ -34,16 +45,16 @@
             </div>
             <button class="btn btn-outline-dark mt-3">Submit</button>
         </form>
-
+    <% } %>
         <hr>
 
         <h4>All review</h4>
-       <div class="row row-cols-1 row-cols-md-2 g-3">
+       <div class="row row-cols-1 row-cols-md-2 mb-4 g-3">
     <% for (review of listing.reviews) { %>
         <div class="col">
             <div class="card h-100">
                 <div class="card-body ms-3">
-                    <h5 class="card-title">SomeOne</h5>
+                    <h5 class="card-title"><%= review.author.username %></h5>
                     <p class="card-text">
                         Feedback: <%= review.comment %>
                     </p>
